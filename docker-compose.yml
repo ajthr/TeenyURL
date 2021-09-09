@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+    web:
+        container_name: teenyurl_web
+        build:
+            context: ./web
+            dockerfile: dockerfile
+        stdin_open: true
+        volumes:
+            - ./web:/usr/src/web
+        environment: 
+            - REACT_APP_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+            - REACT_APP_FACEBOOK_CLIENT_ID=${FACEBOOK_CLIENT_ID}
+        ports:
+            - "3000:3000"
+    api:
+        container_name: teenyurl_api
+        build:
+            context: ./api
+        ports:
+            - "80:8000"
+        volumes: 
+            - ./api:/usr/src/api
+        environment:
+            SECRET_KEY: ${SECRET_KEY}
+            DB_URI: ${DB_URI}
