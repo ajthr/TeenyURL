@@ -2,7 +2,7 @@ import jwt
 import uuid
 from bson.json_util import dumps
 from datetime import datetime
-from fastapi import APIRouter, Request, Response
+from fastapi import APIRouter, Request, Response, responses
 from pydantic import BaseModel
 
 from core import db
@@ -20,7 +20,7 @@ class User(BaseModel):
 @users_router.get("/")
 def get_user(request: Request):
     session_id = request.cookies.get("__SESSION_ID")
-    if session_id != None:
+    if session_id is not None:
         try:
             user_id = jwt.decode(session_id, settings.SECRET_KEY,
                                  algorithms=["HS256"])["id"]
@@ -47,21 +47,21 @@ def signin(request: Request, data: User):
                 {"id": user_id}, settings.SECRET_KEY, algorithm="HS256")
             resp = Response(status_code=200)
             resp.set_cookie("__SESSION_ID", token,
-                            secure=True, httponly=True)
+                            httponly=True)
             return resp
         token = jwt.encode({"id": user["_id"]},
                            settings.SECRET_KEY, algorithm="HS256")
-        resp = Response(200)
+        resp = Response(status_code=200)
         resp.set_cookie("__SESSION_ID", token,
-                        secure=True, httponly=True)
+                        httponly=True)
         return resp
     return Response(status_code=200)
 
 
-@users_router.get("/update/")
-def get_user(request: Request, data: User):
+@users_router.post("/update/")
+def update_user(request: Request, data: User):
     session_id = request.cookies.get("__SESSION_ID")
-    if session_id != None:
+    if session_id is not None:
         try:
             user_id = jwt.decode(session_id, settings.SECRET_KEY,
                                  algorithms=["HS256"])["id"]
@@ -76,7 +76,7 @@ def get_user(request: Request, data: User):
                         "name": data.name
                     }
                 })
-                return Response(content=dumps(user), status_code=200)
+                return Response(status_code=200)
             return Response(status_code=204)
         except:
             return Response(status_code=500)
@@ -91,7 +91,10 @@ def signout(request: Request):
                                  algorithms=["HS256"])["id"]
             user = Users.find_one({"_id": user_id})
             if user is not None:
-                return Response(status_code=204)
+                resp = Response()
+                resp.status_code = 204
+                resp.delete_cookie("__SESSION_ID")
+                return resp
             return Response(status_code=401)
         except:
             return Response(status_code=500)

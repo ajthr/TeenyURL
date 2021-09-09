@@ -4,8 +4,6 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /usr/src/api
 
-RUN apk add --update --no-cache g++ gcc libxslt-dev
-
 COPY ./requirements.txt /usr/src/api/requirements.txt
 
 RUN pip install -r requirements.txt
