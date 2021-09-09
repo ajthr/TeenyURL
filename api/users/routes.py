@@ -25,11 +25,11 @@ def get_user(request: Request):
             user_id = jwt.decode(session_id, settings.SECRET_KEY,
                                  algorithms=["HS256"])["id"]
             user = Users.find_one({"_id": user_id})
-            if user is not None:
+            if user:
                 return Response(content=dumps(user), status_code=200)
-            return Response(status_code=204)
         except:
             return Response(status_code=500)
+    return Response(status_code=204)
 
 
 @users_router.post("/signin/")
@@ -45,13 +45,14 @@ def signin(request: Request, data: User):
                 {"_id": user_id, "name": data.name, "email": data.email})
             token = jwt.encode(
                 {"id": user_id}, settings.SECRET_KEY, algorithm="HS256")
-            resp = Response(status_code=200)
+            user = Users.find_one({ "_id": user_id })
+            resp = Response(content=dumps(user), status_code=200)
             resp.set_cookie("__SESSION_ID", token,
                             httponly=True)
             return resp
         token = jwt.encode({"id": user["_id"]},
                            settings.SECRET_KEY, algorithm="HS256")
-        resp = Response(status_code=200)
+        resp = Response(content=dumps(user), status_code=200)
         resp.set_cookie("__SESSION_ID", token,
                         httponly=True)
         return resp

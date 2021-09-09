@@ -1,0 +1,169 @@
+$primary: #017cdc;
+$danger: #3e6c97;
+$info: #40b6a7;
+$logo: #3DBB3D;
+$gray: #777777;
+$black: #070707;
+$green: #7ED386;
+$aqua: #3FB6A8;
+$white: #FFFFFF;
+
+
+@import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,900|Montserrat|Roboto');
+
+$logo-font: 'Nunito Sans', sans-serif;
+$heading: 'Montserrat', sans-serif;
+$body: 'Roboto', sans-serif;
+
+body {
+  background: linear-gradient(to right, $aqua, $green);
+}
+
+.mt-7 {
+    margin: 6rem 0 0 0 !important;
+}
+
+.mt-14 {
+  margin: 8rem 0 0 0 !important;
+}
+
+.ms-7 {
+  margin: 0 0 0 4.5rem !important;
+}
+
+.mt-100 {
+  margin-top: 22% !important;
+}
+
+ul {
+    padding-left: 0 !important;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+.container {
+  background: $white;
+  width: 540px;
+  height: 420px;
+  margin: 0 auto;
+  position: relative;
+  margin-top: 10%;
+  box-shadow: 2px 5px 20px rgba($gray, .5);
+}
+
+.logo {
+  float: right;
+  margin-right: 12px;
+  margin-top: 12px;
+  font-family: $logo-font;
+  color: $logo;
+  font-weight: 900;
+  font-size: 1.5em;
+  letter-spacing: 1px;
+}
+
+.leftbox {
+  float: left;
+  top: -5%;
+  left: 5%;
+  position: absolute;
+  width: 15%;
+  height: 110%;
+  background: $green;
+  box-shadow: 3px 3px 10px rgba($gray, .5);
+}
+
+nav span {
+  list-style: none;
+  padding: 35px;
+  color: $white;
+  font-size: 1.1em;
+  display: block;
+  transition: all .3s ease-in-out;
+  &:hover {
+    color: $aqua;
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+  &:first-child {
+    margin-top: 7px;
+  }
+}
+
+.active {
+  color: $aqua;
+}
+
+.rightbox {
+  float: right;
+  width: 60%;
+  height: 100%;
+}
+
+.tab {
+  transition: opacity .5s ease-in;
+  position: absolute;
+  width: 70%;
+}
+
+input {
+  border: 1px solid lighten($gray,40%); 
+  font-family: $body;
+  padding: 2px;
+  margin: 0;
+}
+
+.list-container {
+  width: 340px;
+  height: 300px;
+}
+
+ul.list-style-none li {
+    list-style: none;
+}
+
+ul.list-style-none li a {
+    color: #673AB7;
+    display: block;
+    text-decoration: none;
+}
+
+.cut-text { 
+  text-overflow: ellipsis;
+  overflow-x: hidden !important; 
+  width: 330px; 
+  white-space: nowrap;
+}
+
+.google-login-btn {
+  width: 17rem;
+  height: 3rem !important;
+  border-radius: 4px !important;
+  background: hsl(0,0%,87%);
+  border:0px transparent !important;  
+  text-align: center;
+  margin:5px;
+  display: inline-block;
+  font-family: inherit !important;
+  font-size: 1rem !important;
+}
+
+.facebook-login-btn {
+  width: 17rem;
+  height: 3rem;
+  border-radius: 4px;
+  background: hsl(220,44%,41%);
+  color:white;
+  border:0px transparent;  
+  text-align: center;
+  margin:5px;
+  display: inline-block;
+  font-size: 1rem !important;
+}
+
+.facebook-login-btn:hover {
+  background: hsl(220,44%,50%);
+}
